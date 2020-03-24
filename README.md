@@ -1,8 +1,8 @@
 # TASK MANAGER
 
 ## 1. MYFIRSTAPP-USESTATE
-- Implementación de material-ui
-- Styles personalizados mediante archivo scss
+- Implementation material-ui
+- Styles custom through files .scss
 - HOOK useState()
 
 
@@ -13,14 +13,13 @@
 
 ## 2. MYFIRSTAPP-REDUX-PROPS
 - Redux:
-  - Crear acciones como añadir, eliminar y completar una tarea
-  - Configurar reducer
-  - Se incluye combineReducers() con la prueba de que tuviéramos varios y probar funcionamiento (esto iría a archivo root de configuración de la store de todo el proyecto)
-  - mapStateToProps() y mapDispatchToProps() para sustituir funcionalidades con ayuda de la store
+  - Create actions as add, remove and complete a task
+  - Config reducer
+  - Add and test combineReducers() like a test if would have several reducers (this, it would was in the root configuration file of the store)
+  - mapStateToProps() y mapDispatchToProps() for replace funcionality with help of the store
 - Formularios:
-  - Implementar formik y validaciones (yup)
-  - Añadir custom componentes en campos <field> de un formulario con formik
-
+  - formik y validators (yup)
+  - Include custom components in the field <Field> of a formik form Añadir custom componentes en campos <field> de un formulario con formik
 
 > Docu:
  - Redux-react —> https://es.redux.js.org/docs/basico/
@@ -31,14 +30,14 @@
 
 ## 3. MYFIRSTAPP
 - Redux
-  - Implementar typesafe-actions
-  - Crear selectores
-  - Añadir EPIC y crear acción asíncrona (createAsyncAction())
-  - Servicio que simula una petición a bbdd (setTimeout())
-  - Configurar store a nivel global (rootStore)
+  - typesafe-actions
+  -  Create selectors
+  - Add EPIC and asyncAction()
+  - Service to mock request to bbdd (setTimeout())
+  - Config store to level global (rootStore)
   - HOOK useDispatch()
   - HOOK useEffect()
-- Crear módulo ’TASK’ para separarlo de la configuración global
+- Create ’TASK’module to separate it from global configuration
 
 
 > Docu:
