@@ -1,0 +1,24 @@
+$grey-text-dark-high-contrast: #707070;
+
+.form{
+  display: flex;
+  flex-direction: column;
+  background: ghostwhite;
+  padding: 30px 20px;
+  border: 1px solid $grey-text-dark-high-contrast;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  &_input{
+    &:not(:last-child){
+      margin-bottom: 20px;
+    }
+  }
+
+  &_buttons-container{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
