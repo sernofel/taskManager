@@ -19,7 +19,7 @@ const mockWithValuesResponse: { tasks: ITask[] } = {
 export function getTasks() {
   return new Promise (resolve => {
     setTimeout( () => {
-      resolve(mockResponse)
+      resolve(mockWithValuesResponse)
     }, 2000)
   })
 }

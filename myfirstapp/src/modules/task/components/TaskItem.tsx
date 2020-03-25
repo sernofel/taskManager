@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
   Card,
   CardContent,
@@ -14,6 +14,8 @@ import CheckIcon from "@material-ui/icons/Check";
 import { useDispatch } from 'react-redux';
 import { deleteTask, completeTask } from '../store';
 import { ITask } from '../models/Task';
+import { CustomConfirmationModal } from '../../../components/customConfirmationModal';
+import { useModal } from '../../../utils/utils/hooks/useModal';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -30,44 +32,64 @@ const useStyles = makeStyles(theme => ({
 
 function TaskItem(props: ITaskProps) {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [isOpened, setIsOpened, toggle] = useModal(false);
+
+  const dataModal: any = {
+    title: "Do you want remove this task?",
+    description: "You will never be able to see it again"
+  };
+
+  const actionModal = (confirm: boolean) => {
+    if (confirm) dispatch(deleteTask(props.task.id));
+    setIsOpened(false);
+  };
 
   return (
-    <Card className={classes.card} variant="outlined">
-      <CardContent>
-        <Typography component="h1" variant="h5">
-          {props.task.title}
-        </Typography>
-        <Typography component="h1" variant="body1">
-          {props.task.description}
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.cartActions}>
-        <Button
-          onClick={() => dispatch(deleteTask(props.task.id))}
-          color="secondary"
-          size="small"
-          startIcon={<DeleteIcon />}
-        >
-          Delete
-        </Button>
-        {props.task.completed ? (
-          <CheckIcon />
-        ) : (
-          <FormControlLabel
-            control={
-              <Checkbox
-                value="checkedB"
-                color="primary"
-                checked={props.task.completed}
-                onChange={() => dispatch(completeTask(props.task.id))}
-              />
-            }
-            label="Completed"
-          />
-        )}
-      </CardActions>
-    </Card>
+    <Fragment>
+      <Card className={classes.card} variant="outlined">
+        <CardContent>
+          <Typography component="h1" variant="h5">
+            {props.task.title}
+          </Typography>
+          <Typography component="h1" variant="body1">
+            {props.task.description}
+          </Typography>
+        </CardContent>
+        <CardActions className={classes.cartActions}>
+          <Button
+            onClick={toggle}
+            color="secondary"
+            size="small"
+            startIcon={<DeleteIcon />}
+          >
+            Delete
+          </Button>
+          {props.task.completed ? (
+            <CheckIcon />
+          ) : (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="checkedB"
+                  color="primary"
+                  checked={props.task.completed}
+                  onChange={() => dispatch(completeTask(props.task.id))}
+                />
+              }
+              label="Completed"
+            />
+          )}
+        </CardActions>
+      </Card>
+
+      <CustomConfirmationModal
+        isActive={isOpened}
+        toggleFunction={actionModal}
+        title={dataModal.title}
+        description={dataModal.description}
+      />
+    </Fragment>
   );
 }
 
