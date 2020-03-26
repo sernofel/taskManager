@@ -45,3 +45,8 @@
       - https://github.com/piotrwitek/typesafe-actions
       - https://issuehunt.io/r/piotrwitek/typesafe-actions/issues/143
   - Epics —> https://redux-observable.js.org/docs/basics/Epics.html
+  
+  
+After...
+- Hook custom --> useModal (management of the state open/close)
+- Error handling  in a request. Include operationStatus into state of the store
