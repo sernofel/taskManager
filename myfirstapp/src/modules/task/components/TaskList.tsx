@@ -1,12 +1,13 @@
 import * as React from "react";
 import TaskItem from "./TaskItem";
 import { useSelector, useDispatch } from "react-redux";
-import { makeStyles, Typography, CircularProgress } from "@material-ui/core";
-import { Fragment, useEffect } from "react";
+import { makeStyles, Typography, CircularProgress, Button } from "@material-ui/core";
+import { Fragment, useEffect, useCallback } from "react";
 import { selectGetTasks, fetchTasks, State } from "../store/";
+import { OperationStatus } from "../../../shared/models/operationStatus";
 
 const useStyles = makeStyles(theme => ({
-  spinner: {
+  containerMessage: {
     backgroundColor: "#f3f8f8",
     height: '60px',
     alignItems: 'center',
@@ -25,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     margin: "20px",
     flexWrap: "wrap"
+  },
+  errorTry: {
+    marginLeft: '15px'
   }
 }));
 
@@ -33,33 +37,59 @@ const TaskList = () => {
   const tasksStore: State = useSelector(selectGetTasks);
   const dispatch = useDispatch();
 
-  useEffect( () => {
-    // Warning missing dependency:  react-hooks/exhaustive-deps
+  // Solution to warning --> missing dependency:  react-hooks/exhaustive-deps
+  const initFetch = useCallback(() => {
     dispatch(fetchTasks.request());
-  }, [])
+  }, [dispatch])
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
+  
+  const FETCH_STATUS_STATE = {
+    [OperationStatus.SUCCESS]: (
+      <Fragment>
+        <Typography component="h1" variant="h5" className={classes.title}>
+          Listed tasks:
+        </Typography>
+        {tasksStore.tasks.length ? (
+          <div className={classes.containerCard}>
+            {tasksStore.tasks.map(task => (
+              <TaskItem task={task} key={task.id} />
+            ))}
+          </div>
+        ) : (
+          <p className={classes.text}>You dont have tasks created</p>
+        )}
+      </Fragment>
+    ),
+
+    [OperationStatus.IN_PROGRESS]: (
+      <div className={classes.containerMessage}>
+        <CircularProgress />
+      </div>
+    ),
+
+    [OperationStatus.FAILED]: (
+      <div className={classes.containerMessage}>
+        <Typography component="h1" variant="body1">
+          One error has ocurrect
+        </Typography>
+        <Button
+          onClick={initFetch}
+          variant="outlined"
+          color="secondary"
+          className={classes.errorTry}
+        >
+          Try again!
+        </Button>
+      </div>
+    )
+  };
 
   return (
     <Fragment>
-      {tasksStore.isLoading ? (
-        <div className={classes.spinner}>
-          <CircularProgress />
-        </div>
-      ) : (
-        <Fragment>
-          <Typography component="h1" variant="h5" className={classes.title}>
-            Listed tasks:
-          </Typography>
-          {tasksStore.tasks.length ? (
-            <div className={classes.containerCard}>
-              {tasksStore.tasks.map(task => (
-                <TaskItem task={task} key={task.id} />
-              ))}
-            </div>
-          ) : (
-            <p className={classes.text}>You dont have tasks created</p>
-          )}
-        </Fragment>
-      )}
+      {FETCH_STATUS_STATE[tasksStore.operationStatus || OperationStatus.IN_PROGRESS]}
     </Fragment>
   );
 };

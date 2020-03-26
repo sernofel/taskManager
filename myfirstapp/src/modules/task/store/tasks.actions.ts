@@ -23,7 +23,8 @@ export const fetchTasks = createAsyncAction(
 export default {
   addTask,
   completeTask,
-  deleteTask
+  deleteTask,
+  fetchTasks
 }
 
 export type TasksActions = ActionType<typeof addTask | typeof completeTask | typeof deleteTask>

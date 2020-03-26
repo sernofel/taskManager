@@ -1,5 +1,5 @@
 import { Epic } from 'redux-observable'
-import { fetchTasks } from "."
+import { fetchTasks } from './tasks.actions'
 import { isActionOf } from "typesafe-actions"
 import { filter, switchMap, map, catchError } from "rxjs/operators"
 import { getTasks } from '../services/task.service'

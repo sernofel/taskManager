@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { deleteTask, completeTask } from '../store';
 import { ITask } from '../models/Task';
 import { CustomConfirmationModal } from '../../../components/customConfirmationModal';
-import { useModal } from '../../../utils/utils/hooks/useModal';
+import { useModal } from '../../../shared/hooks/useModal';
 
 const useStyles = makeStyles(theme => ({
   card: {

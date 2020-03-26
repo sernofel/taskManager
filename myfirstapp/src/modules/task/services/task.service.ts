@@ -1,9 +1,10 @@
 import { ITask, CategoryTask } from "../models/Task"
 
+// eslint-disable-next-line 
 const mockResponse: { tasks: ITask[] } = {
   tasks: []
 }
-
+// eslint-disable-next-line 
 const mockWithValuesResponse: { tasks: ITask[] } = {
   tasks: [
     {
@@ -17,9 +18,10 @@ const mockWithValuesResponse: { tasks: ITask[] } = {
 }
 
 export function getTasks() {
-  return new Promise (resolve => {
+  return new Promise ((resolve, reject) => {
     setTimeout( () => {
       resolve(mockWithValuesResponse)
+      // reject(new Error('Error to get data'))
     }, 2000)
   })
 }
