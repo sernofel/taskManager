@@ -55,7 +55,7 @@ export const TaskForm = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography component="h1" variant="h5">
+      <Typography variant="h1">
         CREATE NEW TASK
       </Typography>
       <Formik

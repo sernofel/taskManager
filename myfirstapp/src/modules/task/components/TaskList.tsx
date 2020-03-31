@@ -5,8 +5,9 @@ import { makeStyles, Typography, CircularProgress, Button } from "@material-ui/c
 import { Fragment, useEffect, useCallback } from "react";
 import { selectGetTasks, fetchTasks, State } from "../store/";
 import { OperationStatus } from "../../../shared/models/operationStatus";
+import { CustomTheme } from "../../ui/theme";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: CustomTheme) => ({
   containerMessage: {
     backgroundColor: "#f3f8f8",
     height: '60px',
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
   containerCard: {
     display: "flex",
-    margin: "20px",
+    margin: `${theme.spacing(5)}px`,
     flexWrap: "wrap"
   },
   errorTry: {
@@ -49,7 +50,7 @@ const TaskList = () => {
   const FETCH_STATUS_STATE = {
     [OperationStatus.SUCCESS]: (
       <Fragment>
-        <Typography component="h1" variant="h5" className={classes.title}>
+        <Typography variant="h5" className={classes.title}>
           Listed tasks:
         </Typography>
         {tasksStore.tasks.length ? (
@@ -72,14 +73,14 @@ const TaskList = () => {
 
     [OperationStatus.FAILED]: (
       <div className={classes.containerMessage}>
-        <Typography component="h1" variant="body1">
+        <Typography variant="body1">
           One error has ocurrect
         </Typography>
         <Button
           onClick={initFetch}
-          variant="outlined"
+          // variant="contained"
           color="secondary"
-          className={classes.errorTry}
+          className={`${classes.errorTry} tryAgain`}
         >
           Try again!
         </Button>

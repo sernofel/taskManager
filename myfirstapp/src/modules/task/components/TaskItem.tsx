@@ -49,10 +49,10 @@ function TaskItem(props: ITaskProps) {
     <Fragment>
       <Card className={classes.card} variant="outlined">
         <CardContent>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h2">
             {props.task.title}
           </Typography>
-          <Typography component="h1" variant="body1">
+          <Typography variant="body1">
             {props.task.description}
           </Typography>
         </CardContent>
