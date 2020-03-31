@@ -50,3 +50,4 @@
 After...
 - Hook custom --> useModal (management of the state open/close)
 - Error handling  in a request. Include operationStatus into state of the store
+- Custom theme implemented with Material-UI
