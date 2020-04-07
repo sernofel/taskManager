@@ -3,6 +3,9 @@ import {
   Container,
   Button,
   Typography,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { ITask, CategoryTask } from "../models/Task";
@@ -10,9 +13,8 @@ import '../../../styles/form.scss'
 import { addTask } from "../store/";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { MyCheckBox, MySelect, MyTextField } from "../../../components/inputs-custom"
 import { useDispatch } from "react-redux";
-
+import {TextField, Select, CheckboxWithLabel} from 'formik-material-ui'
 
 const formSchema = Yup.object().shape({
   title: Yup.string()
@@ -55,9 +57,7 @@ export const TaskForm = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h1">
-        CREATE NEW TASK
-      </Typography>
+      <Typography variant="h1">CREATE NEW TASK</Typography>
       <Formik
         initialValues={{
           id: "",
@@ -69,17 +69,40 @@ export const TaskForm = () => {
         validationSchema={formSchema}
         onSubmit={handleSubmit}
       >
-        { ( {isValid}) => (
+        {({ isValid }) => (
           <Form className="form">
-            <img className="form_img" src="/assets/icon-task.png" alt="form-img"/>
-            <MySelect name="category" optionsCategory={optionsCategory} />
+            <img
+              className="form_img"
+              src="/assets/icon-task.png"
+              alt="form-img"
+            />
+
+            <FormControl className="form_input" variant="outlined">
+              <InputLabel htmlFor="category">Category</InputLabel>
+              <Field
+                component={Select}
+                name="category"
+                inputProps={{
+                  id: "category"
+                }}
+                labelWidth={70}
+              >
+                <MenuItem value={optionsCategory.PROFESIONAL}>
+                  {optionsCategory.PROFESIONAL}
+                </MenuItem>
+                <MenuItem value={optionsCategory.HOBBIE}>
+                  {optionsCategory.HOBBIE}
+                </MenuItem>
+              </Field>
+            </FormControl>
 
             <Field
               className="form_input"
               id="task-text"
               name="title"
               label="Task Text"
-              component={MyTextField}
+              component={TextField}
+              variant="outlined"
             />
 
             <Field
@@ -87,10 +110,16 @@ export const TaskForm = () => {
               id="task-description"
               label="Task Description"
               name="description"
-              component={MyTextField}
+              component={TextField}
+              variant="outlined"
             />
 
-            <MyCheckBox label="Completed" name="completed" />
+            <Field
+              component={CheckboxWithLabel}
+              name="completed"
+              color="primary"
+              Label={{ label: "Completed" }}
+            />
 
             <div className="form_buttons-container">
               <Button
@@ -105,7 +134,6 @@ export const TaskForm = () => {
             </div>
           </Form>
         )}
-        
       </Formik>
     </Container>
   );
