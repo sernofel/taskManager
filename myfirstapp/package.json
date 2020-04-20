@@ -38,11 +38,7 @@
     "eject": "react-scripts eject",
     "docker:build": "docker build -t sernovfel/task-manager .",
     "docker:run": "docker run -p 8080:80 --name myfirstapp sernovfel/task-manager",
-    "docker:strop": " docker rm -f myfirstapp",
-    "preinstall": "npx npm-force-resolutions"
-  },
-  "resolutions": {
-    "acorn": "^7.1.1"
+    "docker:strop": " docker rm -f myfirstapp"
   },
   "eslintConfig": {
     "extends": "react-app"
